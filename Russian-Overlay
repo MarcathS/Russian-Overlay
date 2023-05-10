@@ -1,0 +1,39 @@
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var overlayLabel: UILabel!
+    var isRussianOverlayEnabled = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Set up the overlay label
+        overlayLabel.textAlignment = .center
+        overlayLabel.textColor = .red
+        overlayLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        overlayLabel.isUserInteractionEnabled = true
+        
+        // Add a tap gesture recognizer to the overlay label
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        overlayLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    @IBAction func switchLanguage(_ sender: Any) {
+        isRussianOverlayEnabled = !isRussianOverlayEnabled
+        updateOverlayText()
+    }
+    
+    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        isRussianOverlayEnabled = !isRussianOverlayEnabled
+        updateOverlayText()
+    }
+    
+    func updateOverlayText() {
+        if isRussianOverlayEnabled {
+            overlayLabel.text = "Привет, мир!" // Russian text to overlay
+        } else {
+            overlayLabel.text = "Hello, world!" // English text to overlay
+        }
+    }
+}
